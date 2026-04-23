@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trivago OOP Architecture</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #fff; }
+        header {
+            padding: 15px 5%; border-bottom: 1px solid #eee;
+            display: flex; gap: 15px; position: sticky; top: 0; background: white;
+        }
+        .btn-nav {
+            padding: 10px 20px; border: 1px solid #ddd; border-radius: 5px;
+            cursor: pointer; background: #fff; font-weight: bold;
+        }
+        .btn-nav:hover { background: #f0f0f0; border-color: #007faf; color: #007faf; }
+
+        #app-root { padding: 30px 5%; max-width: 1200px; margin: auto; }
+
+        /* CSS cho các Class giao diện */
+        .card { border: 1px solid #eee; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; }
+        .pool-view { background: #f0faff; border: 2px solid #007faf; padding: 40px; border-radius: 15px; }
+        .price { color: #d32f2f; font-weight: bold; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+
+<header>
+    <button class="btn-nav" onclick="router.navigate('home')">🏠 Trang chủ</button>
+    <button class="btn-nav" onclick="router.navigate('pool')">🏊 Hồ bơi</button>
+    <button class="btn-nav" onclick="router.navigate('contact')">📞 Liên hệ</button>
+</header>
+
+<div id="app-root"></div>
+
+<script>
+    /** * CLASS 1: Giao diện Trang chủ (Home)
+     */
+
+
+    /** * CLASS 2: Giao diện Form Hồ Bơi (Pool)
+     */
+    class PoolView {
+        render() {
+            return `
+                <div class="pool-view">
+                    <h2>🏊 Lọc tiện ích Hồ bơi</h2>
+                    <hr><br>
+                    <div style="display: grid; gap: 15px;">
+                        <label><input type="checkbox"> Hồ bơi vô cực trên tầng thượng</label>
+                        <label><input type="checkbox"> Hồ bơi nước mặn lọc ozone</label>
+                        <label><input type="checkbox"> Có quầy Bar phục vụ tại hồ</label>
+                    </div>
+                    <br>
+                    <button class="btn-nav" onclick="alert('Đã áp dụng bộ lọc!')">Áp dụng ngay</button>
+                </div>
+            `;
+        }
+    }
+
+    /** * CLASS 3: Giao diện Liên hệ (Contact)
+     */
+    class ContactView {
+        render() {
+            return `
+                <div class="card">
+                    <h2>Liên hệ với chúng tôi</h2>
+                    <p>📧 Email: hỗ trợ@trivago.vn</p>
+                    <p>📞 Hotline: 1800 1234</p>
+                </div>
+            `;
+        }
+    }
+
+    /** * CLASS ĐIỀU PHỐI (Router/Controller)
+     * Dùng để điều khiển việc "gọi" class nào ra màn hình
+     */
+    class AppRouter {
+        constructor() {
+            this.container = document.getElementById('app-root');
+            // Khởi tạo sẵn các class giao diện
+            this.views = {
+                home: new HomeView(),
+                pool: new PoolView(),
+                contact: new ContactView()
+            };
+        }
+
+        navigate(viewName) {
+            const view = this.views[viewName];
+            if (view) {
+                // Gọi phương thức render() của class tương ứng
+                this.container.innerHTML = view.render();
+            }
+        }
+    }
+
+    // Khởi tạo "Bộ điều khiển"
+    const router = new AppRouter();
+
+    // Mặc định khi vào trang sẽ hiện Home
+    window.onload = () => router.navigate('home');
+
+</script>
+
+</body>
+</html>

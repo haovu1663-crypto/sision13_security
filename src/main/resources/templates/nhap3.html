@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trivago Component Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #fff; }
+        header { padding: 15px 5%; border-bottom: 1px solid #eee; display: flex; gap: 10px; background: #fff; position: sticky; top: 0; }
+        .btn-nav { padding: 8px 15px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; background: #f8f8f8; }
+        .btn-nav:hover { background: #e0e0e0; }
+
+        #app-root { padding: 20px 5%; } /* Nơi chứa giao diện được gọi ra */
+
+        /* CSS cho các Class giao diện khác nhau */
+        .hotel-card { display: flex; border: 1px solid #eee; margin-bottom: 15px; border-radius: 8px; overflow: hidden; }
+        .hotel-info { padding: 15px; flex: 1; }
+        .pool-form-container { background: #e3f2fd; padding: 30px; border-radius: 10px; border: 2px dashed #1976d2; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="btn-nav" onclick="loadComponent('tpl-home')">🏠 Trang chủ</div>
+    <div class="btn-nav" onclick="loadComponent('tpl-pool')">🏊 Hồ bơi</div>
+    <div class="btn-nav" onclick="loadComponent('tpl-login')">🏊 form đăng ký</div>
+</header>
+
+<main id="app-root">
+    <p>Vui lòng chọn một mục ở trên để xem nội dung.</p>
+</main>
+
+<template id="tpl-home">
+    <div class="view-home">
+        <h2>Khách sạn nổi bật</h2>
+        <div class="hotel-card">
+            <div style="width: 150px; background: #ddd;"></div>
+            <div class="hotel-info">
+                <h3>Six Senses Con Dao</h3>
+                <p>Giá từ: 17.500.000đ</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="tpl-pool">
+    <div class="pool-form-container">
+        <h2>Bộ lọc: Tiện nghi Hồ bơi</h2>
+        <p>Chọn các yêu cầu chi tiết của bạn:</p>
+        <hr><br>
+        <label><input type="checkbox"> Hồ bơi vô cực (Infinity Pool)</label><br><br>
+        <label><input type="checkbox"> Có cứu hộ trực 24/7</label><br><br>
+        <button onclick="alert('Đã áp dụng!')">Tìm kiếm ngay</button>
+    </div>
+</template>
+<template id="tpl-login">
+    <div class="login-form-container">
+        <h2>Đăng nhập tài khoản</h2>
+        <p>Vui lòng nhập thông tin để tiếp tục:</p>
+        <hr><br>
+
+        <div style="display: flex; flex-direction: column; gap: 15px; max-width: 300px; margin: 0 auto; text-align: left;">
+            <div>
+                <label>Email hoặc Tên đăng nhập:</label><br>
+                <input type="text" placeholder="Nhập email..." style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+
+            <div>
+                <label>Mật khẩu:</label><br>
+                <input type="password" placeholder="Nhập mật khẩu..." style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <input type="checkbox" id="remember">
+                <label for="remember">Ghi nhớ đăng nhập</label>
+            </div>
+
+            <button onclick="alert('Đang đăng nhập...')" class="btn-nav" style="background: #007faf; color: white; border: none; padding: 12px; cursor: pointer;">
+                Đăng nhập ngay
+            </button>
+        </div>
+
+        <p style="margin-top: 15px; font-size: 14px;">
+            Chưa có tài khoản? <a href="#" style="color: #007faf;">Đăng ký tại đây</a>
+        </p>
+    </div>
+</template>
+
+<script>
+    // Hàm "GỌI" các class giao diện vào Main
+    function loadComponent(templateId) {
+        // 1. Tìm thẻ template theo ID
+        const template = document.getElementById(templateId);
+
+        // 2. Sao chép nội dung bên trong template
+        const content = template.content.cloneNode(true);
+
+        // 3. Xóa nội dung cũ trong vùng chứa chính
+        const root = document.getElementById('app-root');
+        root.innerHTML = '';
+
+        // 4. Dán nội dung mới vào
+        root.appendChild(content);
+    }
+
+    // Tự động load trang chủ khi vừa mở web
+    window.onload = () => loadComponent('tpl-home');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chuyển đổi giao diện</title>
+    <style>
+        /* CSS dùng chung */
+        body { font-family: Arial, sans-serif; margin: 0; background: #fff; }
+        .hidden { display: none !important; } /* Lớp để ẩn giao diện */
+
+        header { padding: 20px; border-bottom: 1px solid #eee; display: flex; gap: 20px; }
+        .btn-nav { padding: 10px; cursor: pointer; border: 1px solid #ccc; border-radius: 5px; }
+
+        .main-content { padding: 20px; max-width: 800px; margin: auto; }
+        .hotel-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 8px; }
+        .pool-form { background: #f0f7ff; padding: 20px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="btn-nav" onclick="switchView('view-home')">🏠 Trang chủ</div>
+    <div class="btn-nav" onclick="switchView('view-pool')">🏊 Lọc Hồ Bơi</div>
+    <div class="btn-nav" onclick="switchView('view-booking')">📋 Đơn đặt phòng</div>
+</header>
+
+<div id="app-container">
+
+    <section id="view-home" class="main-content">
+        <h2>Danh sách khách sạn</h2>
+        <div class="hotel-card">
+            <h3>Six Senses Con Dao</h3>
+            <p>Giá: 17.506.300 ₫</p>
+        </div>
+        <div class="hotel-card">
+            <h3>Imperial Vũng Tàu</h3>
+            <p>Giá: 1.070.300 ₫</p>
+        </div>
+    </section>
+
+    <section id="view-pool" class="main-content hidden">
+        <div class="pool-form">
+            <h2>Cài đặt bộ lọc Hồ bơi</h2>
+            <hr>
+            <p>Chọn loại hồ bơi:</p>
+            <label><input type="radio" name="pool"> Hồ bơi vô cực</label><br>
+            <label><input type="radio" name="pool"> Hồ bơi nước ngọt</label><br><br>
+            <button onclick="switchView('view-home')">Áp dụng lọc</button>
+        </div>
+    </section>
+
+    <section id="view-booking" class="main-content hidden">
+        <h2>Lịch sử đặt phòng của bạn</h2>
+        <p>Bạn chưa có đơn hàng nào.</p>
+        <button onclick="switchView('view-home')">Quay lại tìm phòng</button>
+    </section>
+
+</div>
+
+<script>
+    function switchView(viewId) {
+        // 1. Tìm tất cả các section bên trong app-container
+        const sections = document.querySelectorAll('#app-container > section');
+
+        // 2. Ẩn tất cả các section đi
+        sections.forEach(section => {
+            section.classList.add('hidden');
+        });
+
+        // 3. Chỉ hiển thị section có ID được truyền vào
+        document.getElementById(viewId).classList.remove('hidden');
+    }
+</script>
+
+</body>
+</html>

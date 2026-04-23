@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao diện Trắng Đồng Bộ</title>
+    <style>
+        /* Reset mặc định của trình duyệt */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff; /* Nền trắng toàn màn hình */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Thanh điều hướng trên cùng */
+        header {
+            width: 100%;
+            padding: 15px 5%;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e01b1b;
+        }
+
+        /* Thanh tìm kiếm và bộ lọc full width */
+        .filter-bar {
+            width: 100%;
+            padding: 10px 5%;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            background: white;
+        }
+
+        .filter-item {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .filter-item:hover {
+            border-color: #000;
+        }
+
+        /* Khu vực hiển thị danh sách khách sạn */
+        .main-content {
+            max-width: 1200px; /* Độ rộng tối đa để nội dung không bị quá loãng */
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .result-count {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Thẻ khách sạn */
+        .hotel-card {
+            display: flex;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Đổ bóng cực nhẹ */
+        }
+
+        .hotel-image {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .hotel-details {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hotel-title h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        .rating-badge {
+            background: #2d7c32;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .location-text {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Phần giá bên phải */
+        .price-box {
+            width: 220px;
+            padding: 20px;
+            border-left: 1px solid #f0f0f0;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .price-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .btn-view-deal {
+            background-color: #007faf;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .btn-view-deal:hover {
+            background-color: #005f85;
+        }
+
+        /* Responsive cho di động */
+        @media (max-width: 768px) {
+            .hotel-card { flex-direction: column; }
+            .hotel-image { width: 100%; }
+            .price-box { width: 100%; border-left: none; border-top: 1px solid #eee; text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">trivago</div>
+    <div style="font-size: 14px;">Đăng nhập | Menu</div>
+</header>
+
+<div class="filter-bar">
+    <div class="filter-item"><b>Vị trí</b></div>
+    <div class="filter-item"><b>Giá</b></div>
+    <div class="filter-item"><b>Đánh giá: 8.0+</b></div>
+    <div class="filter-item">Wifi</div>
+    <div class="filter-item">Bữa sáng</div>
+    <div class="filter-item">Hồ bơi</div>
+</div>
+
+<main class="main-content">
+    <p class="result-count">Tìm thấy hơn 1,000 khách sạn tại Bà Rịa-Vũng Tàu</p>
+
+    <div class="hotel-card">
+        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=500&q=80" class="hotel-image" alt="Six Senses">
+        <div class="hotel-details">
+            <div class="hotel-title">
+                <span style="color: #007faf; font-size: 12px; font-weight: bold;">LỰA CHỌN PHỔ BIẾN</span>
+                <h3>Six Senses Con Dao ⭐⭐⭐⭐⭐</h3>
+                <div>
+                    <span class="rating-badge">9.4</span>
+                    <span style="font-weight: bold; margin-left: 5px;">Xuất sắc</span>
+                    <span style="color: #666; font-size: 13px;">(2.724 đánh giá)</span>
+                </div>
+                <p class="location-text">📍 Côn Đảo, Bà Rịa-Vũng Tàu</p>
+            </div>
+        </div>
+        <div class="price-box">
+            <span style="font-size: 12px; color: #888;">Từ</span>
+            <div class="price-value">17.506.300 ₫</div>
+            <button class="btn-view-deal">Xem giá ></button>
+        </div>
+    </div>
+
+    <div class="hotel-card">
+        <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=500&q=80" class="hotel-image" alt="Imperial">
+        <div class="hotel-details">
+            <div class="hotel-title">
+                <h3>Imperial Vũng Tàu ⭐⭐⭐⭐⭐</h3>
+                <div>
+                    <span class="rating-badge">8.8</span>
+                    <span style="font-weight: bold; margin-left: 5px;">Tuyệt vời</span>
+                    <span style="color: #666; font-size: 13px;">(13.652 đánh giá)</span>
+                </div>
+                <p class="location-text">📍 Thắng Tam, Vũng Tàu</p>
+            </div>
+        </div>
+        <div class="price-box">
+            <span style="font-size: 12px; color: #888;">Từ</span>
+            <div class="price-value">1.070.300 ₫</div>
+            <button class="btn-view-deal">Xem giá ></button>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
